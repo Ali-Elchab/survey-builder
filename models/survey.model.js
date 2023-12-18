@@ -21,6 +21,7 @@ const surveySchema = new mongoose.Schema({
     type: String,
     required: true,
     maxlength: 20,
+    unique: true,
   },
   questions: [questionSchema],
 });

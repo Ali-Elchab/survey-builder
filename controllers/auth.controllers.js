@@ -12,7 +12,7 @@ const login = async (req, res) => {
 
   const { password: hashedPassword, _id, ...userDetails } = user.toJSON();
 
-  const token = jwt.sign({ ...userDetails }, "asd", { expiresIn: "2 days" });
+  const token = jwt.sign({ ...userDetails }, process.env.JWT_SECRET, { expiresIn: "2 days" });
 
   res.status(200).send({
     user: userDetails,
