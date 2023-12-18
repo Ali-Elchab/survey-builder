@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlenght: 3,
   },
+  profileImage: {
+    data: Buffer,
+    contentType: String,
+  },
   type: {
     type: String,
     enum: ["admin", "user"],

@@ -86,7 +86,7 @@ const getSurveyById = async (req, res) => {
     const id = req.params.id;
     const survey = await Survey.findById(id);
     if (!survey) {
-      res.status(400).send("Survey not found");
+      res.status(404).send("Survey not found");
     }
     res.status(200).json({ survey });
   } catch (err) {
