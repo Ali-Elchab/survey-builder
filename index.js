@@ -11,6 +11,9 @@ const surveyRoutes = require("./routes/survey.routes");
 const { authMiddleware } = require("./middlewares/auth.middleware");
 app.use("/surveys", authMiddleware, surveyRoutes);
 
+const answerRoutes = require("./routes/answer.routes");
+app.use("/answers", authMiddleware, answerRoutes);
+
 app.listen(8000, () => {
   console.log("Server listining on PORT: ", 8000);
   connectToMongoDB();

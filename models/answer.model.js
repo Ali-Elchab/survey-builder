@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const answersSchema = new Schema({
+const answerSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -29,6 +29,6 @@ const answersSchema = new Schema({
   },
 });
 
-const Answer = mongoose.model("Answer", AnswerSchema);
+const Answer = mongoose.model("Answer", answerSchema);
 
 module.exports = Answer;
