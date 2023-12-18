@@ -1,6 +1,7 @@
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const multer = require("multer");
 
 const login = async (req, res) => {
   const { username, password } = req.body;
@@ -39,7 +40,27 @@ const register = async (req, res) => {
   }
 };
 
+const uploadImage = (req, res) => {
+  try {
+    if (!req.file || !req.file.buffer) {
+      throw new Error("File or buffer is undefined");
+    }
+
+    const imgBuffer = Buffer.from(req.file.buffer);
+    const imageData = new Image({ img: { data: imgBuffer, contentType: req.file.mimetype } });
+
+    imageData.save((err, result) => {
+      if (err) return res.status(500).send(err);
+
+      res.status(200).send(result);
+    });
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+};
+
 module.exports = {
   login,
   register,
+  uploadImage,
 };
