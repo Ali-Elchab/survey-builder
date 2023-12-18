@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -14,23 +15,27 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlenght: 6,
   },
-  email: {
-    type: String,
-    required: "You can't add a user without an email",
-    unique: true,
-    minlenght: 3,
-    maxlength: 20,
-  },
-  firstName: {
+
+  name: {
     type: String,
     required: true,
     minlenght: 3,
   },
-  lastName: {
+  type: {
     type: String,
-    required: true,
-    minlenght: 3,
+    enum: ["admin", "user"],
+    default: "user",
   },
+});
+
+userSchema.pre("save", async function (next) {
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (err) {
+    next(err);
+  }
 });
 
 const User = mongoose.model("User", userSchema);
