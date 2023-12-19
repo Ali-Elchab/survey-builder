@@ -1,18 +1,8 @@
 const express = require("express");
 const { connectToMongoDB } = require("./configs/mongoDb.configs");
 const app = express();
-const multer = require("multer"); // Import multer
 app.use(express.json());
 require("dotenv").config();
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + "-" + Date.now() + ".png");
-  },
-});
-const upload = multer({ storage: storage });
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);

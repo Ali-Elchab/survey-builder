@@ -13,6 +13,13 @@ const LoginForm = () => {
         value={loginForm.username}
         handleChange={HandleOnInputChange}
       />
+      <InputField
+        name={"username"}
+        text={"Username"}
+        type={"text"}
+        value={loginForm.username}
+        handleChange={HandleOnInputChange}
+      />
     </div>
   );
 };

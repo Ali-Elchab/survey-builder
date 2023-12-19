@@ -15,6 +15,5 @@ const upload = multer({ storage: storage });
 
 console.log("Auth routes loaded");
 router.post("/login", login);
-router.post("/register", register);
-router.post("/upload-image", upload.single("image"), uploadImage);
+router.post("/register", upload.single("image"), register);
 module.exports = router;

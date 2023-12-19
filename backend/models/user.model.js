@@ -22,8 +22,7 @@ const userSchema = new mongoose.Schema({
     minlenght: 3,
   },
   image: {
-    type: Buffer,
-    contentType: String,
+    type: String,
   },
   type: {
     type: String,

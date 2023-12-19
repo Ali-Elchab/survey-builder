@@ -23,7 +23,7 @@ const login = async (req, res) => {
 
 const register = async (req, res) => {
   const { username, password, name, type } = req.body;
-
+  const image = req.file;
   try {
     if (!username || !password || !name) {
       throw new Error("All fields are required");
@@ -32,7 +32,7 @@ const register = async (req, res) => {
     const alreadyExists = await User.findOne({ username });
     if (alreadyExists) throw new Error("Username already exists");
 
-    const user = new User({ username, password, name, type });
+    const user = new User({ username, password, name, type, image });
     await user.save();
     res.status(200).send({ message: "User created successfully", user });
   } catch (err) {
@@ -41,19 +41,11 @@ const register = async (req, res) => {
 };
 
 const uploadImage = (req, res) => {
+  const { file } = req.file;
   try {
-    if (!req.file || !req.file.buffer) {
-      throw new Error("File or buffer is undefined");
+    if (!file) {
+      throw new Error("File is undefined");
     }
-
-    const imgBuffer = Buffer.from(req.file.buffer);
-    const imageData = new Image({ img: { data: imgBuffer, contentType: req.file.mimetype } });
-
-    imageData.save((err, result) => {
-      if (err) return res.status(500).send(err);
-
-      res.status(200).send(result);
-    });
   } catch (error) {
     res.status(400).send({ error: error.message });
   }
