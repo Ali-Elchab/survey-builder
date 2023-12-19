@@ -14,8 +14,8 @@
   background-color: white;
 }
 
-.blue-bg {
-  background-color: #0095f6;
+.yellow-bg {
+  background-color: #ffdd00;
 }
 
 .primary-text {
@@ -39,7 +39,7 @@
 }
 
 .primary-border {
-  border: 0.5px solid #efefef;
+  border: 0.5px solid #ffdd00;
 }
 
 .secondary-border {

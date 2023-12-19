@@ -1,0 +1,24 @@
+.form {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  background-color: white;
+  gap: 30px;
+}
+
+.form-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+.form p {
+  margin: 20px 10px 10px 10px;
+  font-size: 14px;
+}
+
+.form p a {
+  color: #0095f6;
+  text-decoration: none;
+}

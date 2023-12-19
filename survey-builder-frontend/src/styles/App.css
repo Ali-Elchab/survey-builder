@@ -39,3 +39,19 @@
 .rounded {
   border-radius: 10px;
 }
+
+.btn {
+  outline: none;
+  border: none;
+  padding: 12px;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 14px;
+  width: 100%;
+  background-color: #ffdd00;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #e0c200;
+}
