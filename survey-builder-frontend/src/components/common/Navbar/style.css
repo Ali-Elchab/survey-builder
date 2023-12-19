@@ -1,0 +1,40 @@
+.nav-bar {
+  height: 8vh;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 15px;
+  box-shadow: 0px 2px 2px grey;
+}
+
+.logo-nav {
+  background-color: aliceblue;
+  height: 80%;
+  width: 100px;
+}
+
+.nav-elements > ul {
+  list-style: none;
+}
+
+.nav-elements > ul > li {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0px 10px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.nav-elements > ul > li:hover {
+  opacity: 0.5;
+  transition: all 0.2s;
+}
+
+.profile-icon {
+  width: 50px;
+  height: 50px;
+  font-size: 26px;
+}
+
+.nav-button {
+  transition: all 0.2s;
+}
