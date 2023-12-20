@@ -26,8 +26,8 @@
   color: #888888;
 }
 
-.black-text {
-  color: black;
+.yellow-text {
+  color: #ffdd00;
 }
 
 .white-text {
@@ -46,14 +46,10 @@
   border: 0.5px solid #888888;
 }
 
-.black-border {
-  border: 0.5px solid black;
+.yellow-border {
+  border: 0.5px solid #ffdd00;
 }
 
 .white-border {
   border: 0.5px solid white;
-}
-
-.blue-border {
-  border: 0.5px solid #0095f6;
 }

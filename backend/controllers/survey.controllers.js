@@ -7,10 +7,7 @@ const addSurvey = async (req, res) => {
     if (!title || !Array.isArray(questions)) {
       return res.status(400).json({ error: "Invalid data format" });
     }
-    const alreadyExists = Survey.findOne({ title });
-    if (alreadyExists) {
-      return res.status(400).json({ error: "Survey with this title already exists" });
-    }
+
     const newSurvey = new Survey({ title });
 
     questions.forEach((question) => {

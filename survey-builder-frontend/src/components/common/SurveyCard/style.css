@@ -1,0 +1,18 @@
+.survey-card {
+  flex-basis: 30%;
+  height: 120px;
+  padding: 15px 35px;
+  background-color: rgb(223, 221, 221);
+  border-radius: 10px;
+  color: rgb(57, 57, 57);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.survey-card:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}

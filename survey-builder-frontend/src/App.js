@@ -5,6 +5,7 @@ import "./styles/App.css";
 import "./styles/colors.css";
 import AuthPage from "./pages/auth";
 import RegisterForm from "./components/RegisterFrom";
+import HomePage from "./pages/home";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<AuthPage />} />
           <Route path="/register" element={<RegisterForm />} />
+          <Route path="/home" element={<HomePage />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -24,7 +24,8 @@ const LoginForm = () => {
 
       if (token) {
         localStorage.setItem("token", `Bearer ${token}`);
-        res.data.user.type === "admin" ? navigate("/admin") : navigate("/user");
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        navigate("/home");
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {

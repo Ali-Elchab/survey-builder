@@ -34,7 +34,8 @@ const RegisterForm = () => {
 
       if (token) {
         localStorage.setItem("token", `Bearer ${token}`);
-        navigate("/user");
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        navigate("/home");
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
