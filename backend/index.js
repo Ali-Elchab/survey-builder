@@ -1,9 +1,15 @@
 const express = require("express");
 const { connectToMongoDB } = require("./configs/mongoDb.configs");
 const app = express();
+const cors = require("cors");
 app.use(express.json());
 require("dotenv").config();
-
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Allow requests from this origin
+    credentials: true, // Include if using cookies, sessions, or authentication
+  })
+);
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 

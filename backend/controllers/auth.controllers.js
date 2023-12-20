@@ -4,21 +4,31 @@ const bcrypt = require("bcrypt");
 const multer = require("multer");
 
 const login = async (req, res) => {
-  const { username, password } = req.body;
-  const user = await User.findOne({ username });
-  if (!user) res.status(400).send({ message: "Invalid username/password" });
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
 
-  const isValidPassword = await bcrypt.compare(password, user.password);
-  if (!isValidPassword) res.status(400).send({ message: "Invalid username/password" });
+    if (!user) {
+      return res.status(400).send({ message: "Invalid username/password" });
+    }
 
-  const { password: hashedPassword, _id, ...userDetails } = user.toJSON();
+    const isValidPassword = await bcrypt.compare(password, user.password);
 
-  const token = jwt.sign({ ...userDetails }, process.env.JWT_SECRET, { expiresIn: "2 days" });
+    if (!isValidPassword) {
+      return res.status(400).send({ message: "Invalid username/password" });
+    }
 
-  res.status(200).send({
-    user: userDetails,
-    token,
-  });
+    const { password: hashedPassword, _id, ...userDetails } = user.toJSON();
+
+    const token = jwt.sign({ ...userDetails }, process.env.JWT_SECRET, { expiresIn: "2 days" });
+
+    res.status(200).send({
+      user: userDetails,
+      token,
+    });
+  } catch (error) {
+    res.status(500).send({ error: "Internal Server Error" });
+  }
 };
 
 const register = async (req, res) => {
@@ -30,29 +40,30 @@ const register = async (req, res) => {
     }
 
     const alreadyExists = await User.findOne({ username });
-    if (alreadyExists) throw new Error("Username already exists");
-
-    const user = new User({ username, password, name, type, image });
-    await user.save();
-    res.status(200).send({ message: "User created successfully", user });
-  } catch (err) {
-    res.status(400).send({ error: err.message || "Failed to create user" });
-  }
-};
-
-const uploadImage = (req, res) => {
-  const { file } = req.file;
-  try {
-    if (!file) {
-      throw new Error("File is undefined");
+    if (alreadyExists) {
+      return res.status(401).send({
+        message: "Username not available",
+      });
     }
-  } catch (error) {
-    res.status(400).send({ error: error.message });
+
+    const imagePath = image ? image.path : "";
+    const user = new User({ username, password, name, type, image: imagePath });
+    await user.save();
+
+    const { password: hashedPassword, _id, ...userDetails } = user.toJSON();
+    const token = jwt.sign({ ...userDetails }, process.env.JWT_SECRET, { expiresIn: "2 days" });
+
+    return res.status(200).send({
+      user: userDetails,
+      token,
+      message: "User created successfully",
+    });
+  } catch (err) {
+    return res.status(400).send({ error: err.message || "Failed to create user" });
   }
 };
 
 module.exports = {
   login,
   register,
-  uploadImage,
 };
