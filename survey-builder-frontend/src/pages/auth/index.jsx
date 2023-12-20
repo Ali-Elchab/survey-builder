@@ -7,7 +7,7 @@ import "./style.css";
 const AuthPage = () => {
   const navigate = useNavigate();
   return (
-    <div className="page flex center auth">
+    <div>
       <LoginForm />
     </div>
   );

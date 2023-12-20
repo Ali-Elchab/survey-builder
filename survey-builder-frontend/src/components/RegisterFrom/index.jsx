@@ -4,27 +4,37 @@ import "./style.css";
 import Button from "../common/Button";
 import { requestData } from "../../core/axios";
 import { useNavigate } from "react-router-dom";
+import pic from "../../assets/images/profile.png";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState({
     username: "",
     password: "",
+    name: "",
+    image: null,
+    imageURL: pic,
   });
 
   const HandleOnInputChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    if (e.target.name === "image") {
+      const file = e.target.files[0];
+      const imageURL = file ? URL.createObjectURL(file) : pic;
+      setValues({ ...values, image: file, imageURL });
+    } else {
+      setValues({ ...values, [e.target.name]: e.target.value });
+    }
   };
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     try {
-      const res = await requestData("auth/login", "post", values);
+      const res = await requestData("auth/register", "post", values);
       console.log("Success Response:", res.data);
       const { token } = res.data;
 
       if (token) {
         localStorage.setItem("token", `Bearer ${token}`);
-        res.data.user.type === "admin" ? navigate("/admin") : navigate("/user");
+        navigate("/user");
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
@@ -38,8 +48,30 @@ const LoginForm = () => {
   return (
     <div className="page flex center auth">
       <form className="form">
-        <h2 className="flex center form-title">Sign In</h2>
+        <h2 className="flex center form-title">Sign Up</h2>
         <div>
+          <div className="flex column center">
+            <label htmlFor="image" style={{ cursor: "pointer" }}>
+              <img src={values.imageURL} alt="Uploaded" />
+            </label>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept=".jpg,.jpeg,.png"
+              onChange={HandleOnInputChange}
+              style={{ display: "none" }}
+            />
+          </div>
+
+          <InputField
+            name={"name"}
+            text={"Name"}
+            type={"text"}
+            // value={values.username}
+            placeholder={"Type your name"}
+            handleChange={HandleOnInputChange}
+          />
           <InputField
             name={"username"}
             text={"Username"}
@@ -48,6 +80,7 @@ const LoginForm = () => {
             placeholder={"Type your username"}
             handleChange={HandleOnInputChange}
           />
+
           <InputField
             name={"password"}
             text={"Password"}
@@ -57,13 +90,13 @@ const LoginForm = () => {
             handleChange={HandleOnInputChange}
           />
         </div>
-        <Button text={"Sign In"} handleOnClick={handleLogin} />
+        <Button text={"Sign Up"} handleOnClick={handleRegister} />
         <p>
-          Dont have an account? <a href="/register">Register now</a>
+          Already have an account? <a href="/">Login</a>
         </p>
       </form>
     </div>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
