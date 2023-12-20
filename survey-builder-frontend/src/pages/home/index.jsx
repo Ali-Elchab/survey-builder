@@ -37,10 +37,11 @@ const HomePage = () => {
 
   const userData = JSON.parse(localStorage.getItem("user"));
   const userType = userData ? userData.type : null;
+
   console.log(userType);
   return (
     <div className="flex column center ">
-      <Navbar profile={profile} />
+      <Navbar />
       <div className="flex column  content ">
         <h1>{userType === "admin" ? "Admin Portal" : "User Portal"}</h1>
 

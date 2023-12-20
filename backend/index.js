@@ -2,6 +2,7 @@ const express = require("express");
 const { connectToMongoDB } = require("./configs/mongoDb.configs");
 const app = express();
 const cors = require("cors");
+const path = require("path");
 app.use(express.json());
 require("dotenv").config();
 app.use(
@@ -10,6 +11,7 @@ app.use(
     credentials: true, // Include if using cookies, sessions, or authentication
   })
 );
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
