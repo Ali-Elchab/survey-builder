@@ -4,11 +4,15 @@ import profile from "../../assets/images/profile.png";
 import "./style.css";
 import { requestData } from "../../core/axios";
 import { SurveyCard } from "../../components/common/SurveyCard";
+import Button from "../../components/common/Button";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [surveys, setSurveys] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -23,7 +27,6 @@ const HomePage = () => {
     const fetchSurveys = async () => {
       setLoading(true);
       const res = await requestData("surveys/", "GET", {}, headers);
-      console.log(res.data.surveys);
 
       if (res.status === 200) {
         setSurveys(res.data.surveys);
@@ -34,17 +37,25 @@ const HomePage = () => {
     };
     fetchSurveys();
   }, []);
-
   const userData = JSON.parse(localStorage.getItem("user"));
   const userType = userData ? userData.type : null;
 
-  console.log(userType);
   return (
     <div className="flex column center ">
       <Navbar />
       <div className="flex column  content ">
-        <h1>{userType === "admin" ? "Admin Portal" : "User Portal"}</h1>
-
+        <div className="flex group">
+          <h1>{userType === "admin" ? "Admin Portal" : "User Portal"}</h1>
+          {userType === "admin" ? (
+            <Button
+              text={"Add survey"}
+              handleOnClick={() => {
+                navigate("/addSurvey");
+              }}
+              className={"add-survey-btn"}
+            />
+          ) : null}
+        </div>
         <div className="surveys-container flex">
           {loading ? (
             <h2>Loading...</h2>

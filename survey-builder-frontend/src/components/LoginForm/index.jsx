@@ -16,10 +16,10 @@ const LoginForm = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
+  console.log("Success Response:", values);
   const handleLogin = async () => {
     try {
-      const res = await requestData("auth/login", "post", values);
-      console.log("Success Response:", res.data);
+      const res = await requestData("auth/login", "post", values, {});
       const { token } = res.data;
 
       if (token) {

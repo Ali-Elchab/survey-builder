@@ -3,7 +3,6 @@ import "./style.css";
 import logoDark from "../../../assets/images/logo-dark.png";
 const Navbar = () => {
   const profile = JSON.parse(localStorage.getItem("user")).image;
-  console.log(profile);
   return (
     <div className="flex  full-width yellow-bg nav-bar">
       <div className="nav-logo">

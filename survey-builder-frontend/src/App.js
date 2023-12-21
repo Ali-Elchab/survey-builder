@@ -6,6 +6,7 @@ import "./styles/colors.css";
 import AuthPage from "./pages/auth";
 import RegisterForm from "./components/RegisterFrom";
 import HomePage from "./pages/home";
+import AddSurvey from "./pages/addSurvey";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<AuthPage />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/addSurvey" element={<AddSurvey />} />
         </Routes>
       </BrowserRouter>
     </div>

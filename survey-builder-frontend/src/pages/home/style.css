@@ -12,3 +12,13 @@
   margin-top: 80px;
   gap: 25px;
 }
+
+.add-survey-btn {
+  width: fit-content;
+  padding: 10px;
+}
+
+.group {
+  justify-content: space-between;
+  align-items: center;
+}

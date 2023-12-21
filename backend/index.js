@@ -5,6 +5,7 @@ const cors = require("cors");
 const path = require("path");
 app.use(express.json());
 require("dotenv").config();
+
 app.use(
   cors({
     origin: "http://localhost:3000", // Allow requests from this origin
@@ -12,6 +13,7 @@ app.use(
   })
 );
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 

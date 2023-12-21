@@ -28,8 +28,7 @@ const RegisterForm = () => {
 
   const handleRegister = async () => {
     try {
-      const res = await requestData("auth/register", "post", values);
-      console.log("Success Response:", res.data);
+      const res = await requestData("auth/register", "post", values, { "Content-Type": "multipart/form-data" });
       const { token } = res.data;
 
       if (token) {
