@@ -33,18 +33,28 @@ const AddSurvey = () => {
   };
 
   const HandleAddQuestion = () => {
+    if (!question.questionText.trim()) {
+      setError("Please provide a question text");
+      return;
+    }
     setQuestions((prevQuestions) => [...prevQuestions, question]);
     setSurvey((prevSurvey) => ({ ...prevSurvey, questions: [...prevSurvey.questions, question] }));
-    // Clear the question after adding
-    // setQuestion({ questionText: "", type: "text", options: [] });
   };
 
   const HandleAddSurvey = async () => {
+    if (!survey.title.trim()) {
+      setError("Please provide a survey title");
+      return;
+    }
     const token = localStorage.getItem("token");
     const headers = { Authorization: token };
-    const response = await requestData("surveys", "post", survey, headers);
-    if (response.status === 201) {
-      navigate("/home");
+    try {
+      const response = await requestData("surveys", "post", survey, headers);
+      if (response.status === 201) {
+        navigate("/home");
+      }
+    } catch (error) {
+      setError(error.response.data.message);
     }
   };
 
@@ -61,8 +71,8 @@ const AddSurvey = () => {
             type={"text"}
             placeholder={"Type survey title"}
             handleChange={HandleOnInputChange}
+            required={true}
           />
-
           <h2 className="questions-title">Questions</h2>
 
           <h4>Add a question:</h4>
@@ -91,10 +101,13 @@ const AddSurvey = () => {
               type={"text"}
               placeholder={"option 1,oprtion 2,option 3..."}
               handleChange={HandleQuestionChange}
+              required={true}
             />
           ) : null}
 
           <Button text={"Add Question"} className={"add-question"} handleOnClick={HandleAddQuestion} />
+          {error && <p className="error-message">{error}</p>}
+
           <Button text={"Add Survey"} handleOnClick={HandleAddSurvey} />
         </div>
       </div>

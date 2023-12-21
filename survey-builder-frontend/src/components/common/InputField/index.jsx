@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-const InputField = ({ value, handleChange, type, text, name, placeholder }) => {
+const InputField = ({ value, handleChange, type, text, name, placeholder, required }) => {
   return (
     <div>
       <label htmlFor={text} className="form-label">
@@ -15,6 +15,7 @@ const InputField = ({ value, handleChange, type, text, name, placeholder }) => {
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
+        required={required}
       />
     </div>
   );

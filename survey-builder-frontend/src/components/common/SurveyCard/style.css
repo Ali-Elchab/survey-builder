@@ -10,9 +10,24 @@
   justify-content: space-between;
   transition: transform 0.3s ease;
   cursor: pointer;
+  position: relative;
+  z-index: 1;
 }
 
 .survey-card:hover {
   transform: scale(1.07);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.card-bottom {
+  /* width: 100%; */
+  justify-content: space-between;
+}
+.reset-survey-btn {
+  width: fit-content;
+  font-size: 10px;
+  z-index: 100;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
 }

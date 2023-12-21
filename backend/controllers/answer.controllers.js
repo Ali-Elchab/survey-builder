@@ -1,24 +1,31 @@
 const Answer = require("../models/answer.model");
 const Survey = require("../models/survey.model");
+const jwt = require("jsonwebtoken");
+const User = require("../models/user.model");
+
 const addAnswer = async (req, res) => {
+  console.log(req.body);
   try {
-    const { userId, surveyId, responses } = req.body;
-    const existingAnswer = await Answer.findOne({ user: userId, survey: surveyId });
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken._id;
+    const { id, responses } = req.body;
+    const existingAnswer = await Answer.findOne({ user: userId, survey: id });
 
     if (existingAnswer) {
       return res.status(400).json({ error: "Answer already exists for this survey and user" });
     }
-
+    console.log(req.body);
     const newAnswer = new Answer({
       user: userId,
-      survey: surveyId,
+      survey: id,
       responses: responses,
     });
     await newAnswer.save();
 
-    const survey = await Survey.findById(surveyId);
+    const survey = await Survey.findById(id);
 
-    await Answer.findOneAndUpdate({ user: userId, survey: surveyId }, { completed: true }, { new: true });
+    await Answer.findOneAndUpdate({ user: userId, survey: id }, { completed: true }, { new: true });
 
     res.status(201).json({ message: "User responses added for the survey", newAnswer });
   } catch (error) {
@@ -28,8 +35,11 @@ const addAnswer = async (req, res) => {
 
 const resetUserAnswers = async (req, res) => {
   try {
-    const { userId, surveyId } = req.body;
-
+    console.log("IN RESET USER ANSWERS");
+    const { surveyId } = req.body;
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken._id;
     await Answer.findOneAndDelete({ user: userId, survey: surveyId });
 
     res.status(200).json({ message: "User answers reset for the survey" });

@@ -4,6 +4,6 @@ const { resetUserAnswers, addAnswer } = require("../controllers/answer.controlle
 const router = express.Router();
 
 router.post("/", addAnswer);
-router.delete("/", resetUserAnswers);
+router.get("/", resetUserAnswers);
 
 module.exports = router;

@@ -18,7 +18,7 @@ const login = async (req, res) => {
       return res.status(400).send({ message: "Invalid username/password" });
     }
 
-    const { password: hashedPassword, _id, ...userDetails } = user.toJSON();
+    const { password: hashedPassword, ...userDetails } = user.toJSON();
 
     const token = jwt.sign({ ...userDetails }, process.env.JWT_SECRET, { expiresIn: "2 days" });
 
@@ -50,7 +50,7 @@ const register = async (req, res) => {
     const user = new User({ username, password, name, type, image: imagePath });
     await user.save();
 
-    const { password: hashedPassword, _id, ...userDetails } = user.toJSON();
+    const { password: hashedPassword, ...userDetails } = user.toJSON();
     const token = jwt.sign({ ...userDetails }, process.env.JWT_SECRET, { expiresIn: "2 days" });
 
     return res.status(200).send({

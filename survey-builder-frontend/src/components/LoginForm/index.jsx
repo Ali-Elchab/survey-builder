@@ -16,7 +16,6 @@ const LoginForm = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  console.log("Success Response:", values);
   const handleLogin = async () => {
     try {
       const res = await requestData("auth/login", "post", values, {});
@@ -25,6 +24,7 @@ const LoginForm = () => {
       if (token) {
         localStorage.setItem("token", `Bearer ${token}`);
         localStorage.setItem("user", JSON.stringify(res.data.user));
+        localStorage.setItem("userType", res.data.user.type);
         navigate("/home");
       }
     } catch (error) {
