@@ -8,6 +8,18 @@ Survey Builder is a simple and efficient web application that allows users to cr
 - **Manage Surveys**: Add, edit, or delete surveys.
 - **Collect Responses**: Responses are stored in a MongoDb database.
 
+## Screenshots
+|![signup](https://github.com/Ali-Elchab/survey-builder/assets/106644215/a82b8125-91d9-4a04-a510-68034e574010)|![main](https://github.com/Ali-Elchab/survey-builder/assets/106644215/d50a1aac-eca5-4ba4-b797-ae8767f883d5)|
+| ------------------------------------- | ------------------------------ | 
+|![add](https://github.com/Ali-Elchab/survey-builder/assets/106644215/4e98a2ff-80e2-4247-8b1c-1cb882e87344)|![survey](https://github.com/Ali-Elchab/survey-builder/assets/106644215/8b54170a-8e36-4cf2-9798-4ccea54dcb4f)|
+
+
+
+
+
+
+
+
 ## Prerequisites
 Before you begin, ensure you have met the following requirements:
 - Node.js
